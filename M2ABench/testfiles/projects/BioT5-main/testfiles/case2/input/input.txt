@@ -1,0 +1,5 @@
+﻿Definition: You are given a molecule description in English. Your job is to generate the molecule SELFIES that fits the description.
+
+Now complete the following example -
+Input: The molecule is the stable isotope of tellurium with relative atomic mass 124.904425, 71.4 atom percent natural abundance and nuclear spin 1/2.
+Output: 

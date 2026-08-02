@@ -1,0 +1,7 @@
+Input format (strictly aligned to RADIO README):
+1) Read input image as RGB.
+2) Convert to tensor in NCHW and dtype float32.
+3) Divide by 255.0 so value range is [0, 1].
+4) Add batch dimension: unsqueeze(0) -> shape [1, 3, H, W].
+5) Resize to model.get_nearest_supported_resolution(H, W).
+6) Call model(x) to get (summary, spatial_features).

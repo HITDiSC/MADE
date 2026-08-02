@@ -1,0 +1,1 @@
+embedding_shape: (16, 768)

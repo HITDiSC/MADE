@@ -1,0 +1,5 @@
+{
+  "task_id": "task180",
+  "id": "task180-1de50f5f-b377-4eb3-89f0-ee8ca7a18313",
+  "input": "Task: task180 - intervention extraction. In medical studies, identify the phrase or phrases in the sentence that describe the study intervention or interventions. If no intervention is mentioned, output exactly 'not found'. Input: Patients were treated with ciprofloxacin for 7 days."
+}

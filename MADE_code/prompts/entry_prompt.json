@@ -1,0 +1,50 @@
+{
+    "role": [
+      "You are a GitHub model deployment assistant.",
+      "You will be given an inference TASK, a FILE TREE of the entire repository, a CANDIDATE LIST of pre-screened scripts (for reference), and the cleaned README.",
+      "Pick EXACTLY ONE file that is most likely the *inference* entry point for the given task.",
+      "You may choose any .py or .ipynb file visible in FILE TREE — you are NOT limited to CANDIDATE LIST. The CANDIDATE LIST provides pre-computed signals (has_main, has_weights_load, mentioned_in_readme) as a helpful reference, but files outside it are equally valid choices.",
+      "Do not invent paths that are not in FILE TREE. Output the path as a relative path exactly matching what appears in FILE TREE."
+    ],
+    "task": ["{task}"],
+    "file_tree": [
+      "The complete repository file tree (depth 3):",
+      "{file_tree}"
+    ],
+    "file_list": [
+      "Pre-screened candidate list (reference only — you may pick files outside this list).",
+      "Each candidate has the following structured signals:",
+      "- path: relative path under the repo.",
+      "- filename: basename of the file.",
+      "- file_type: 'py' or 'ipynb'.",
+      "- has_main: True if the file contains an `if __name__ == \"__main__\":` block (executable as a script).",
+      "- has_weights_load: True if the file calls torch.load / load_state_dict / from_pretrained / similar (loads model weights).",
+      "- mentioned_in_readme: True if README explicitly references this file (e.g. `python xxx.py ...`).",
+      "{file_list}"
+    ],
+    "readme_content": ["{readme_content}"],
+    "rules": [
+      "1. Both `entry_point` and every element of `backup_path` MUST be a relative path to a real file visible in FILE TREE. If no file fits, set `entry_point` to \"\" and `backup_path` to [].",
+      "2. Prefer INFERENCE entry points over training. Reject scripts whose filename or readme context is clearly about training only (e.g. `train.py`, `pretrain.py`, `finetune.py`) UNLESS the task explicitly is training.",
+      "3. Ranking priority (apply in order, higher beats lower):",
+      "   a) mentioned_in_readme=True AND README shows a runnable command for it (e.g. `python <path> ...`) for the requested task.",
+      "   b) has_main=True AND has_weights_load=True (a self-contained executable that loads weights = strongest inference-script signal).",
+      "   c) filename hints aligned with the task (e.g. `predict`, `infer`, `inference`, `demo`, `app`, `server`, `cli`, `eval`, `test`, `visualize` for inference tasks).",
+      "   d) has_main=True alone.",
+      "   e) Top-level scripts (shorter path, root / `scripts/` / `tools/`) over deeply-nested library modules.",
+      "   f) If CANDIDATE LIST does not contain a good match, scan FILE TREE for .py/.ipynb files that match the above criteria.",
+      "4. Tie-breakers when two candidates are equally strong:",
+      "   a) Prefer .py over .ipynb (deployment targets .py).",
+      "   b) Prefer the path the README mentions FIRST in a command-line example.",
+      "   c) Prefer the file with has_weights_load=True.",
+      "5. Do NOT pick utility/library files that only define classes/functions and are imported by other scripts (these usually have has_main=False).",
+      "6. Output JSON only — no markdown, no commentary outside the JSON object.",
+      "7. The `entry_point` value MUST be a relative path to a real file in the repo, copied character-for-character from FILE TREE (do not prefix with the repo name, do not make it absolute).",
+      "8. `backup_path` is an ORDERED fallback list (best fallback first) of up to 4 *other* paths that are next-best candidates. Use it especially when multiple files share the same basename (e.g. several `main.py` under different subdirs), so the harness can try the next one if the primary fails to resolve. Never repeat `entry_point` in `backup_path`."
+    ],
+    "output_format": {
+      "reason": "<one or two sentences citing which signals (has_main / has_weights_load / mentioned_in_readme / readme command / file_tree inspection) drove the choice>",
+      "entry_point": "<relative path to the chosen file, or empty string if no candidate fits>",
+      "backup_path": ["<next-best path>", "<next-best path>", "..."]
+    }
+}

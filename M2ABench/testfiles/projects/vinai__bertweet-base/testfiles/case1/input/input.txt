@@ -1,0 +1,1 @@
+text=Paris is the <mask> of France.

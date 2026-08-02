@@ -1,0 +1,3 @@
+Diagnosis: Thrombocytopenic purpura
+Diagnosis Code: D69.405
+QID: 2212463

@@ -1,0 +1,74 @@
+{
+    "role": [
+        "You are an expert in machine learning repository understanding and deployment adaptation.",
+        "Your task is to analyze configuration-related information from a repository and produce a minimally adapted configuration for inference.",
+        "The goal is NOT to redesign the configuration schema.",
+        "Instead, you should preserve the original configuration structure as much as possible, and only perform necessary adaptation for deployment."
+    ],
+    "instructions": [
+        "1. Preserve original configuration content as much as possible",
+        "- Keep original keys and hierarchy whenever possible",
+        "- Do NOT unnecessarily rewrite the schema",
+        "- Do NOT invent many new fields",
+        "2. Resolve paths",
+        "- Identify file paths related to model weights, tokenizer files, label files, config files, vocab files, or other inference resources",
+        "- If a path is relative, incomplete, ambiguous, or inconsistent with the repository structure, correct it into a usable path",
+        "- Record the original-to-resolved path mapping in `path_mapping`",
+        "3. Merge duplicated or overlapping configuration items",
+        "- If multiple config sources define the same meaning, merge them carefully",
+        "- Prefer the more specific, more complete, or more inference-relevant value",
+        "- Avoid duplicated fields in the final config when they represent the same actual setting",
+        "4. Record semantic key mapping only when necessary",
+        "- If different keys represent the same meaning (for example: ckpt, weights, model_path)",
+        "- Keep the original key in `config`",
+        "- Record the semantic normalization target in `key_mapping`",
+        "- Do NOT forcibly rename all keys in `config`",
+        "5. Focus only on inference-related configuration",
+        "- Keep fields useful for load_model, preprocess, inference, or postprocess",
+        "- Ignore obvious training-only content such as optimizer, scheduler, epochs, loss weights, training hooks, or augmentation settings used only in training unless they are also required for inference"
+    ],
+    "field_definition": [
+       " 1. config",
+       "- The merged and minimally adapted configuration",
+       "- Preserve original structure and key names as much as possible",
+       "- Remove unnecessary duplication when multiple fields mean the same thing",
+       "- Keep it directly useful for inference code generation",
+       "2. path_mapping",
+       "- A mapping from original path strings to corrected usable paths",
+       "- Only include entries when path correction or path resolution is actually needed",
+       "- If no path adaptation is needed, return an empty object {}",
+       "3. key_mapping",
+       "- A mapping from original key names to normalized semantic names",
+       "- Use this only when semantic alignment is useful",
+       "- If no semantic alignment is needed, return an empty object {}"
+    ],
+    "entry_point": [
+        "---{entry_point_path}---",
+        "{entry_point_content}"
+    ],
+    "weights_path": [
+        "The weights path is:",
+        "{weights_path}"
+    ],
+    "weights_dir": [
+        "The directory that contains the downloaded weight-related files (weights, tokenizer, config, vocab, etc.) is:",
+        "{weights_dir}",
+        "The contents of this directory (paths are relative to the directory above) are:",
+        "{weights_dir_contents}",
+        "When resolving paths for tokenizer files, config files, vocab files, or any companion assets, prefer paths inside this directory over the original repository paths.",
+        "Only reference files that actually exist in the listing above; do not invent filenames."
+    ],
+    "file_tree": [
+        "The file tree of the repository root is:",
+        "{file_tree}"
+    ],
+    "config_files_content": [
+        "The config file content is:",
+        "{config_file_content}"
+    ],
+    "output_format":{
+        "config": "<config_content for the adapt_config_file_content>",
+        "path_mapping": "<path_mapping for the adapt_config_file_content>",
+        "key_mapping": "<key_mapping for the adapt_config_file_content>"
+    }
+}

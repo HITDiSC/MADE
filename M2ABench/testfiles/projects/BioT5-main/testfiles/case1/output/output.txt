@@ -1,0 +1,1 @@
+﻿<bom>[C][C][C][C][C][C@@H1][O][C@@H1][Ring1][Ring1][/C][=C][/C][Branch1][C][O][C][/C][=C][\C][/C][=C][\C][C][C][C][=Branch1][C][=O][O-1]<eom>

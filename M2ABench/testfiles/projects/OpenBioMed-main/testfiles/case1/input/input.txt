@@ -1,0 +1,2 @@
+smiles: C=C1CC[C@@H]2C(C)(C)CCC[C@@]2(C)[C@@H]1CC[C@H](C)CCO[C@@H]1O[C@@H](C)[C@H](O)[C@@H](OC(C)=O)[C@H]1OC(C)=O
+text: Please describe this molecule

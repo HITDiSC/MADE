@@ -1,0 +1,6 @@
+predictions_top5:
+1. token=capital | score=0.9762480854988098 | sequence=Paris is the capital of France.
+2. token=Capital | score=0.017404813319444656 | sequence=Paris is the Capital of France.
+3. token=city | score=0.0011283897329121828 | sequence=Paris is the city of France.
+4. token=center | score=0.0011000799713656306 | sequence=Paris is the center of France.
+5. token=centre | score=0.0010632558260113 | sequence=Paris is the centre of France.

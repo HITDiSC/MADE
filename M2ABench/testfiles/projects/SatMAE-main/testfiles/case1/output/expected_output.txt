@@ -1,0 +1,4 @@
+label_id=0
+label_name=airport
+val_image_path=image.jpg
+val_timestamp=2005-11-17T05:55:33Z

@@ -1,0 +1,10 @@
+Patient Information:
+Age: 24 years
+Gender: Female
+Chief Complaint: Skin scattered petechiae for over 1 month, discovered thrombocytopenia for 1 day.
+Present Illness History: Skin scattered petechiae for over 1 month, discovered thrombocytopenia for 1 day.
+Past Medical History: Healthy.
+Physical Examination: Skin scattered petechiae.
+Auxiliary Examinations: Plasma fibrinogen determination: Instrument method, test results: PT% 99.0% (reference range 70-150); INR 1.01 (reference range 0.80-1.20); PT 13.0 seconds (reference range 11.0-15.0); APTT 34.7 seconds (reference range 32.0-45.0); Fib 2.95 g/L (reference range 2.00-4.00); TT 15.9 seconds (reference range 14.0-20.0).
+
+Please provide a detailed and comprehensive diagnostic analysis of this medical record, and give the diagnostic results.

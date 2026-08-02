@@ -1,0 +1,1 @@
+last_hidden_state_shape: (1, 4, 768)

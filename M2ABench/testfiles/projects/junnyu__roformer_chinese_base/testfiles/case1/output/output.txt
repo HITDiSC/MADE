@@ -1,0 +1,7 @@
+gold_masked_char: 可
+predictions_top5:
+1. token=可以 | score=0.2747185230 | sequence=蚂蚁借呗等额还款可以以换成先息后本吗
+2. token=是 | score=0.2144991308 | sequence=蚂蚁借呗等额还款是以换成先息后本吗
+3. token=能 | score=0.1392857730 | sequence=蚂蚁借呗等额还款能以换成先息后本吗
+4. token=可 | score=0.1181858405 | sequence=蚂蚁借呗等额还款可以换成先息后本吗
+5. token=， | score=0.0288257636 | sequence=蚂蚁借呗等额还款，以换成先息后本吗

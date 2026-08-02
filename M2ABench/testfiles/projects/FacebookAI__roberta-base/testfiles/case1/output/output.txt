@@ -1,0 +1,7 @@
+gold_masked_word: tactical
+predictions_top5:
+1. token=strategy | score=0.198043
+2. token=simulation | score=0.114021
+3. token=stealth | score=0.062325
+4. token=story | score=0.028756
+5. token=narrative | score=0.028359

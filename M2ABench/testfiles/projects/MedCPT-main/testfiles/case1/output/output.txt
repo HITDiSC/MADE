@@ -1,0 +1,4 @@
+scores: [1.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+top_ranked_article_index: 0
+top_ranked_pmid: 15858239
+candidate_pmids: [15858239, 22174542, 17965226, 11106284, 23528997, 16986122]

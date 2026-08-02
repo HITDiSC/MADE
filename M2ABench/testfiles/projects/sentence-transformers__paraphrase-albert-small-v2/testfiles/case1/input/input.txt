@@ -1,0 +1,2 @@
+source_sentence=The weather is good today.
+sentences=Today has nice weather. || I enjoy studying machine learning. || The weather is pleasant today and the sky is clear over the city.

@@ -1,0 +1,9 @@
+is_male=1
+1dAVb=1
+RBBB=0
+LBBB=0
+SB=0
+ST=0
+AF=0
+normal_ecg=0
+label_vector=1,1,0,0,0,0,0,0

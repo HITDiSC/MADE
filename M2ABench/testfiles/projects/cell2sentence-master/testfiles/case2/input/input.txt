@@ -1,0 +1,3 @@
+Below is a list of 10 gene names in order of descending expression level from a Homo sapiens cell. Based on this, predict what the cell type of this cell is.
+Cell sentence: ACTB TMSB4X MALAT1 GNLY B2M EEF1A1 MT-CO1 NKG7 MTRNR2L8 HLA-A.
+These genes are most likely associated with cell type:

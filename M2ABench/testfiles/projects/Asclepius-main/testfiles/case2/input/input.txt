@@ -1,0 +1,34 @@
+You are an intelligent clinical languge model.
+Below is a snippet of patient's discharge summary and a following instruction from healthcare professional.
+Write a response that appropriately completes the instruction.
+The response should provide the accurate answer to the instruction, while being concise.
+
+[Discharge Summary Begin]
+Discharge Summary:
+
+Admission Date: [Insert Date]
+Discharge Date: [Insert Date]
+
+Patient Name: [Insert Name]
+Age/Sex: 39-year-old Male
+Medical Record Number: [Insert Number]
+
+Admission Diagnosis: Unspecified respiratory tract infection
+Discharge Diagnosis: Resolved respiratory tract infection
+
+Hospital Course: The patient was hospitalized due to persistent fever and dry cough for 2 weeks, leading to reduced general health condition. On admission, the patient required 4 L/min of oxygen due to rapid shallow breathing at rest and severe breathlessness during minor physical activity. The initial physical therapy focused on educating the patient on dyspnea-relieving positions, mobilization techniques, and deep-breathing exercises. However, with time, the patient's anxiety-induced dyspnea became an issue, leading to the modification of therapy to relieve his dyspnea.
+
+The patient positively responded to the therapy, evidenced by a reduction in respiratory rate from 30 to 22 breaths/min and an increase in oxygen saturation from 92% to 96% on 4 L/min oxygen. Over the next few days, his dyspnea and anxiety started to alleviate gradually, and the patient regained his self-confidence. The therapy was eventually shifted to walking and strength training, and the patient was able to walk for 350m without a walking aid or supplemental oxygen before discharge.
+
+Hospital Outcome: The patient was discharged home in an improved condition, with resolved respiratory tract infection, showing no need for further hospitalization. The patient was advised to follow-up with his regular healthcare professional for further monitoring and management of his health status.
+
+Discharge Medications: None
+
+Follow-up: The patient was advised to follow-up with his regular healthcare professional regarding further monitoring and management of his health status. 
+
+Impression: Resolved respiratory tract infection with successful physical therapy for dyspnea relief and anxiety reduction. The patient responded well to therapy and regained his self-confidence, able to walk independently before discharge.
+[Discharge Summary End]
+
+[Instruction Begin]
+Which coreferences were resolved in the hospital course section related to the patient's respiratory tract infection?
+[Instruction End] 

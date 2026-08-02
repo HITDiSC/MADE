@@ -1,0 +1,425 @@
+{
+  "project_count": 80,
+  "source_project_count": 122,
+  "project_mode": "category-expanded80",
+  "category_representatives": {
+    "image": [
+      "SatMAE-main",
+      "case1"
+    ],
+    "audio": [
+      "canary-1b-v2",
+      "case5"
+    ],
+    "single_cell": [
+      "transcriptformer-main",
+      "case3"
+    ],
+    "scientific_signal": [
+      "EEGPT-main",
+      "case3"
+    ],
+    "biological_sequence": [
+      "ESM-AA-main",
+      "case5"
+    ]
+  },
+  "additional_format_representatives": {
+    "png_image": [
+      "RADIO-main",
+      "case3"
+    ],
+    "flac_audio": [
+      "wav2vec2-base-960h",
+      "case5"
+    ],
+    "opus_audio": [
+      "owsm_ctc_v4_1B",
+      "case4"
+    ],
+    "geospatial_raster": [
+      "hls-foundation-os-main",
+      "case1"
+    ],
+    "tensor": [
+      "galileo-main",
+      "case1"
+    ],
+    "protein_structure": [
+      "ProSST-main",
+      "case1"
+    ],
+    "biomedical_signal": [
+      "ecg-fm-main",
+      "case1"
+    ]
+  },
+  "further_format_representatives": {
+    "arrow_table": [
+      "LangCell-main",
+      "case4"
+    ],
+    "json_lines": [
+      "MMedLM-main",
+      "case1"
+    ],
+    "source_record": [
+      "BioMedLM-main",
+      "case3"
+    ],
+    "image_tensor_bundle": [
+      "GeoLink_NeurIPS2025-main",
+      "case5"
+    ],
+    "vision_language_image": [
+      "MiniCPM-o-2_6",
+      "case4"
+    ]
+  },
+  "cases_per_project": "mixed",
+  "case_count_summary": {
+    "1": 60,
+    "2": 20
+  },
+  "case_mode": "category100",
+  "case_selection": {
+    "albert__albert-base-v2": [
+      "case1",
+      "case2"
+    ],
+    "allenai__longformer-base-4096": [
+      "case1",
+      "case2"
+    ],
+    "allenai__scibert_scivocab_uncased": [
+      "case1",
+      "case2"
+    ],
+    "Asclepius-main": [
+      "case1",
+      "case2"
+    ],
+    "BarcodeBERT-main": [
+      "case1",
+      "case2"
+    ],
+    "BioClinical-ModernBERT-main": [
+      "case1",
+      "case2"
+    ],
+    "BiomedGPT-main": [
+      "case1",
+      "case2"
+    ],
+    "BioMedLM-main": [
+      "case3"
+    ],
+    "BioMistral-main": [
+      "case1",
+      "case2"
+    ],
+    "BioReason-main": [
+      "case1",
+      "case2"
+    ],
+    "BioT5-main": [
+      "case1",
+      "case2"
+    ],
+    "canary-1b-v2": [
+      "case5"
+    ],
+    "cell-o1-main": [
+      "case1",
+      "case2"
+    ],
+    "cell2sentence-master": [
+      "case1",
+      "case2"
+    ],
+    "ChatDoctor-main": [
+      "case1",
+      "case2"
+    ],
+    "Clinical_ModernBERT-main": [
+      "case1",
+      "case2"
+    ],
+    "crystal-text-llm-main": [
+      "case1",
+      "case2"
+    ],
+    "DISC-MedLLM-main": [
+      "case1",
+      "case2"
+    ],
+    "DNABERT_2-main": [
+      "case1",
+      "case2"
+    ],
+    "DNABERT_S-main": [
+      "case1",
+      "case2"
+    ],
+    "DoctorGLM-main": [
+      "case1",
+      "case2"
+    ],
+    "ecg-fm-main": [
+      "case1"
+    ],
+    "EEGPT-main": [
+      "case3"
+    ],
+    "EleutherAI__gpt-neo-125M": [
+      "case1",
+      "case2"
+    ],
+    "ESM-AA-main": [
+      "case5"
+    ],
+    "facebook__bart-base": [
+      "case1"
+    ],
+    "FacebookAI__roberta-base": [
+      "case1"
+    ],
+    "funnel-transformer__small": [
+      "case1"
+    ],
+    "galileo-main": [
+      "case1"
+    ],
+    "GENA_LM-main": [
+      "case1"
+    ],
+    "GeoLink_NeurIPS2025-main": [
+      "case5"
+    ],
+    "google-bert__bert-base-uncased": [
+      "case1"
+    ],
+    "google-t5__t5-small": [
+      "case1"
+    ],
+    "google__byt5-small": [
+      "case1"
+    ],
+    "google__electra-small-discriminator": [
+      "case1"
+    ],
+    "google__long-t5-local-base": [
+      "case1"
+    ],
+    "google__mt5-small": [
+      "case1"
+    ],
+    "google__pegasus-cnn_dailymail": [
+      "case1"
+    ],
+    "gpn-main": [
+      "case1"
+    ],
+    "hls-foundation-os-main": [
+      "case1"
+    ],
+    "HuatuoGPT-II-main": [
+      "case1"
+    ],
+    "hyena-dna-main": [
+      "case1"
+    ],
+    "IDEA-CCNL__Erlangshen-Roberta-110M-Similarity": [
+      "case1"
+    ],
+    "junnyu__roformer_chinese_base": [
+      "case1"
+    ],
+    "LangCell-main": [
+      "case4"
+    ],
+    "LLaMo-main": [
+      "case1"
+    ],
+    "medAlpaca-main": [
+      "case1"
+    ],
+    "MedCPT-main": [
+      "case1"
+    ],
+    "medfound-main": [
+      "case1"
+    ],
+    "meditron-main": [
+      "case1"
+    ],
+    "MedReason-main": [
+      "case1"
+    ],
+    "MedS-Ins-main": [
+      "case1"
+    ],
+    "microsoft__deberta-base": [
+      "case1"
+    ],
+    "microsoft__DialoGPT-small": [
+      "case1"
+    ],
+    "microsoft__graphcodebert-base": [
+      "case1"
+    ],
+    "microsoft__mpnet-base": [
+      "case1"
+    ],
+    "MiniCPM-o-2_6": [
+      "case4"
+    ],
+    "MMedLM-main": [
+      "case1"
+    ],
+    "MolT5-main": [
+      "case1"
+    ],
+    "MutaPLM-main": [
+      "case1"
+    ],
+    "OpenBioMed-main": [
+      "case1"
+    ],
+    "owsm_ctc_v4_1B": [
+      "case4"
+    ],
+    "PMC-LLaMA-main": [
+      "case1"
+    ],
+    "princeton-nlp__sup-simcse-bert-base-uncased": [
+      "case1"
+    ],
+    "ProSST-main": [
+      "case1"
+    ],
+    "ProteinNPT-master": [
+      "case1"
+    ],
+    "RADIO-main": [
+      "case3"
+    ],
+    "RiNALMo-main": [
+      "case1"
+    ],
+    "Salesforce__codet5-small": [
+      "case1"
+    ],
+    "SaProt-main": [
+      "case1"
+    ],
+    "SatMAE-main": [
+      "case1"
+    ],
+    "sentence-transformers__paraphrase-albert-small-v2": [
+      "case1"
+    ],
+    "SpliceBERT-main": [
+      "case1"
+    ],
+    "studio-ousia__luke-base": [
+      "case1"
+    ],
+    "tGPT-main": [
+      "case1"
+    ],
+    "transcriptformer-main": [
+      "case3"
+    ],
+    "vinai__bertweet-base": [
+      "case1"
+    ],
+    "wav2vec2-base-960h": [
+      "case5"
+    ],
+    "xlnet__xlnet-base-cased": [
+      "case1"
+    ],
+    "YituTech__conv-bert-base": [
+      "case1"
+    ]
+  },
+  "pdf_count": 15,
+  "selected_pdfs": [
+    {
+      "project": "medAlpaca-main",
+      "filename": "medAlpaca-main.pdf",
+      "raw_bytes": 131936
+    },
+    {
+      "project": "allenai__scibert_scivocab_uncased",
+      "filename": "allenai__scibert_scivocab_uncased.pdf",
+      "raw_bytes": 187299
+    },
+    {
+      "project": "FacebookAI__roberta-base",
+      "filename": "FacebookAI__roberta-base.pdf",
+      "raw_bytes": 209675
+    },
+    {
+      "project": "vinai__bertweet-base",
+      "filename": "vinai__bertweet-base.pdf",
+      "raw_bytes": 218585
+    },
+    {
+      "project": "albert__albert-base-v2",
+      "filename": "albert__albert-base-v2.pdf",
+      "raw_bytes": 289475
+    },
+    {
+      "project": "BioClinical-ModernBERT-main",
+      "filename": "BioClinical-ModernBERT-main.pdf",
+      "raw_bytes": 289573
+    },
+    {
+      "project": "microsoft__DialoGPT-small",
+      "filename": "paper.pdf",
+      "raw_bytes": 305141
+    },
+    {
+      "project": "BioMistral-main",
+      "filename": "BioMistral-main.pdf",
+      "raw_bytes": 311321
+    },
+    {
+      "project": "facebook__bart-base",
+      "filename": "facebook__bart-base.pdf",
+      "raw_bytes": 322247
+    },
+    {
+      "project": "medfound-main",
+      "filename": "medfound-main.pdf",
+      "raw_bytes": 367174
+    },
+    {
+      "project": "owsm_ctc_v4_1B",
+      "filename": "owsm_ctc_v4_1B.pdf",
+      "raw_bytes": 373545
+    },
+    {
+      "project": "google__byt5-small",
+      "filename": "google__byt5-small.pdf",
+      "raw_bytes": 384212
+    },
+    {
+      "project": "google__long-t5-local-base",
+      "filename": "google__long-t5-local-base.pdf",
+      "raw_bytes": 384932
+    },
+    {
+      "project": "google__electra-small-discriminator",
+      "filename": "google__electra-small-discriminator.pdf",
+      "raw_bytes": 393465
+    },
+    {
+      "project": "funnel-transformer__small",
+      "filename": "funnel-transformer__small.pdf",
+      "raw_bytes": 484760
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+# OUTPUT_FORMAT
+
+This file describes the cleaned expected output format for this case.
+
+## Output Location
+- Directory: `output/`
+
+## Required Output Files
+- `output.txt`
+
+## File Formats
+
+### `output.txt`
+- Plain UTF-8 text output. Expected line structure:
+- `您好，我了解您目前怀孕2个月，同时患有乙肝大三阳。乙肝大三阳是指乙肝表面抗原（HBsAg）、乙肝e抗原（HBeAg）和乙肝病毒核心抗体（HBcAb）均为阳性。对于孕妇来说，乙肝大三阳可能会增加宫内感染的风险。因此，我建议您积极进行保肝治疗，以降低宫内感染的可能性。`
+- `在孕28周后，您可以考虑服用替比夫定（Tenofovir），这是一种抗病毒药物，可以有效控制乙肝病毒的复制。替比夫定的使用可以降低宫内感染的风险，同时对您和胎儿的健康都有保护作用。请您在孕期定期复查乙肝相关指标，以便及时调整治疗方案。您好，请问还有其他方面的问题需要我帮助解答吗？`
+
+## Output Contract
+- Only the files and fields listed above are part of the expected output.
+- Keep the output format minimal and case-compatible.

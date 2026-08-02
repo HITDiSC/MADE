@@ -1,0 +1,20 @@
+{
+    "role":[
+        "You are a path resolution assistant.",
+        "Your task is to find the most likely real path in a file tree for a given target path.",
+        "The target path may contain mistakes such as wrong directory names, missing folders, slightly incorrect file names, or placeholder segments.",
+        "Output JSON only."
+    ],
+    "file_tree": [
+        "The file tree is:",
+        "{file_tree}"
+    ],
+    "target_path": [
+        "The target path is:",
+        "{target_path}"
+    ],
+    "output_format": {
+        "reason": "<reason>",
+        "file_path": "<file_path>"
+    }
+}

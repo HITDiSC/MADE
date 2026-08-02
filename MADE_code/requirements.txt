@@ -1,0 +1,18 @@
+# Core LLM + config
+openai>=1.40
+pyyaml>=6.0
+pydantic>=2.5
+tiktoken>=0.7
+requests>=2.31
+
+# Artifact ingest (paper PDF -> repo -> weights)
+pypdf>=4.0
+gdown>=5.0
+huggingface_hub>=0.24
+
+# Served model (runs inside the generated Docker image; listed for completeness)
+fastapi>=0.110
+uvicorn>=0.29
+
+# External runtime dependency (not a pip package): Docker Engine with NVIDIA
+# container runtime for GPU inference. Install separately.

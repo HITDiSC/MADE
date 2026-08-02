@@ -1,0 +1,19 @@
+# OUTPUT_FORMAT
+
+This file describes the cleaned expected output format for this case.
+
+## Output Location
+- Directory: `output/`
+
+## Required Output Files
+- `output.txt`
+
+## File Formats
+
+### `output.txt`
+- Plain UTF-8 text output. Expected line structure:
+- `The molecule is a natural product found in Piper aequale with data available.`
+
+## Output Contract
+- Only the files and fields listed above are part of the expected output.
+- Keep the output format minimal and case-compatible.

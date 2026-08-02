@@ -1,0 +1,277 @@
+{
+    "load_model": {
+        "role":[
+            "You are a code refactoring assistant.",
+            "Your task is to extract and rewrite only the model-loading and runtime-initialization logic of a repository into a standalone `load_model()` function for single-sample inference."
+        ],
+        "instructions":[
+            "The target function is:",
+            "",
+            "1. load_model():",
+            "- Initialize the model and all required runtime dependencies for inference.",
+            "- Includes model construction, checkpoint loading, tokenizer / processor / transform initialization, vocabulary loading, config parsing, device selection, and eval mode setup.",
+            "- Returns a `model_bundle` dictionary containing the model and all dependencies needed by later stages.",
+            "",
+            "Strict constraints:",
+            "- DO NOT process any user input or sample data.",
+            "- DO NOT perform model forward pass.",
+            "- DO NOT decode predictions or produce final results.",
+            "- DO NOT include training logic.",
+            "- DO NOT include dataset iteration, dataloader construction for the full dataset, optimizer, loss, scheduler, or evaluation metrics.",
+            "- If the original project contains a large config system, keep only the minimal config logic required for inference.",
+            "- If some paths in the original repository are environment-specific or unavailable, replace them with clearly marked placeholders or minimal reasonable defaults.",
+            "",
+            "Implementation requirements:",
+            "- Produce a complete Python function named exactly `load_model`.",
+            "- The function signature must be: `def load_model():`",
+            "- The function should be self-contained as much as possible.",
+            "- Preserve original model-loading behavior as faithfully as possible.",
+            "- Prefer minimal extraction: keep only the code truly required for single-sample inference runtime.",
+            "- All objects needed later by preprocess / inference / postprocess should be packed into a dictionary named `model_bundle`.",
+            "- The returned `model_bundle` may include keys such as `model`, `tokenizer`, `processor`, `transform`, `device`, `config`, `label_map`, or other required runtime objects.",
+            "- CRITICAL SELF-CONTAINMENT RULE: Your generated load_model() function must be fully self-contained in terms of executable logic. You MUST inline all loading/initialization logic directly into the function body rather than calling repository utility functions (e.g. do NOT call `repo_module.load_model(...)`, `utils.load_checkpoint(...)`, `io.load_pretrained_model(...)`, etc.). You MAY import model architecture classes (nn.Module subclasses, config dataclasses, tokenizer classes) from the repository because these define structure, not mutable logic. But any function that performs file I/O, weight loading, config parsing, or runtime setup must have its logic copied directly into load_model(). This is because at runtime only service.py is editable for bug fixes — if a bug lives inside a repo utility function, we cannot fix it. The related code files are provided so you can read and understand the utility functions, then reproduce their essential logic inline.",
+            "- If helper logic is very small, inline it; otherwise reuse only strictly necessary helper functions.",
+            "",
+            "Code style requirements:",
+            "- Keep the code runnable and explicit.",
+            "- Add brief comments for non-obvious steps.",
+            "- Do not invent nonexistent project-specific APIs unless strongly implied by the given code.",
+            "- If some dependency is missing from the provided files, make the smallest reasonable assumption and note it in a short comment inside the code."
+        ],
+        "fuction_return_format":[
+            "def load_model():...\n    ...\n    return model_bundle",
+            "Return exactly one dictionary named `model_bundle`.",
+            "`model_bundle` must contain all runtime objects required by later stages.",
+            "Do not return multiple separate objects.",
+            "All shared dependencies must be packed inside `model_bundle`."
+        ]
+    },
+    "preprocess":{
+        "role":[
+            "You are a code refactoring assistant.",
+            "Your task is to extract and rewrite only the preprocessing logic of a repository into a standalone `preprocess(raw_input, model_bundle=None)` function for single-sample inference.",
+            "You are also responsible for declaring the INPUT SCHEMA that `raw_input` is expected to conform to - see the INPUT SCHEMA section below."
+        ],
+        "instructions":[
+            "The target function is:",
+            "",
+            "1. preprocess(raw_input, model_bundle=None):",
+            "- Convert one raw input sample into `model_inputs`.",
+            "- Includes only input reading/parsing, data transformation, normalization, tokenization, tensor conversion, padding, resizing, feature construction, and packaging of model inputs.",
+            "- Output must be directly consumable by the model forward call in inference stage.",
+            "- Must support single-sample inference only.",
+            "",
+            "Strict constraints:",
+            "- DO NOT load model weights or initialize model architecture.",
+            "- DO NOT perform model forward pass.",
+            "- DO NOT decode predictions or generate final user-facing results.",
+            "- DO NOT include unrelated training logic.",
+            "- DO NOT include dataset iteration, batch training loop, dataloader construction for full dataset, optimizer, loss, or evaluation metrics.",
+            "- If preprocessing depends on objects prepared during model loading (e.g. tokenizer, vocab, image transform, processor, label mapping, device info, config), access them through `model_bundle` when necessary.",
+            "- If some preprocessing parameters are originally read from config files, inline only the minimal necessary values or access them through `model_bundle`; do not reproduce the whole config system unless absolutely necessary.",
+            "",
+            "Implementation requirements:",
+            "- Produce a complete Python function named exactly `preprocess`.",
+            "- The function signature must be: `def preprocess(raw_input, model_bundle=None):`",
+            "- The function should be self-contained as much as possible.",
+            "- Preserve original preprocessing behavior as faithfully as possible.",
+            "- Prefer minimal extraction: keep only the code truly required for single-sample preprocessing.",
+            "- `raw_input` at runtime is a Python `dict` whose keys are declared in the INPUT SCHEMA section below. Each value is a **file path** (string) pointing to a file inside the container that holds the actual input data. Your preprocess code MUST read the file from the path, e.g. `text = open(raw_input['passage']).read()` for text or `img = Image.open(raw_input['image'])` for images. Do NOT expect `raw_input` values to be the raw content itself - they are always file paths.",
+            "- If the original code expects batch input, adapt it to one-sample input only.",
+            "- Return only the final `model_inputs` object.",
+            "",
+            "INPUT SCHEMA (this is new and mandatory):",
+            "- You MUST also emit an `input_schema` object that declares what `raw_input` looks like.",
+            "- `input_schema.inputs` is a LIST of objects. Each object describes one field of `raw_input` and has exactly four keys: `field_name`, `field_type`, `field_required`, `field_description`.",
+            "- `field_type` must be one of: 'string', 'number', 'integer', 'boolean'. This describes the LOGICAL type of the data the file contains (e.g. 'string' for a text file, 'string' for an image path). At runtime every value in raw_input is a file path string regardless of field_type.",
+            "- `field_name` MUST be a valid Python identifier in snake_case, matching `^[a-z_][a-z0-9_]*$`.",
+            "- The set of `field_name` values in `input_schema.inputs` MUST be EXACTLY the set of keys you access via `raw_input[...]` in your preprocess code. Not a superset, not a subset. If you declare a field you don't read, drop it; if you read a field you didn't declare, add it.",
+            "- Infer the right fields by looking at the task description, the entry point's argparse declarations, the run_command's arguments, and the original preprocessing logic. Example signals: `--passage` and `--question` in argparse -> two fields named `passage` and `question`; README usage `predict(text='...')` -> one field named `text`.",
+            "- `field_required` is a bool. True means raw_input[field_name] must always be present; false means preprocess must handle absence gracefully.",
+            "- `field_description` is one sentence explaining what that field is.",
+            "- `input_schema.reason` is where you write one or two sentences explaining HOW you inferred these fields (from which signal). Future recovery loops rely on this audit trail.",
+            "- DO NOT include a `params` key in input_schema. Runtime parameters are not part of this schema.",
+            "",
+            "Code style requirements:",
+            "- Keep the code runnable and explicit.",
+            "- Add brief comments for non-obvious steps.",
+            "- CRITICAL SELF-CONTAINMENT RULE: Your generated preprocess() function must be fully self-contained in terms of executable logic. You MUST inline all preprocessing logic directly into the function body rather than calling repository utility functions. You MAY import data structure classes or constants from the repository, but any function that performs data reading, transformation, tokenization, or feature construction must have its logic copied directly into preprocess(). The related code files are provided so you can read and understand the utility functions, then reproduce their essential logic inline.",
+            "- Reuse helper functions only if they are strictly necessary; otherwise inline small logic.",
+            "- Do not invent nonexistent project-specific APIs unless strongly implied by the given code.",
+            "- If some dependency is missing from the provided files, make the smallest reasonable assumption and note it in a short comment inside the code."
+        ],
+        "fuction_return_format":[
+            "def preprocess(raw_input, model_bundle=None):\n    ...\n    return model_inputs",
+            "Return exactly one object named `model_inputs`.",
+            "`model_inputs` must contain everything required for the forward pass of a single sample.",
+            "Do not return multiple values.",
+            "If extra metadata is necessary for inference or postprocessing, pack it inside `model_inputs`."
+        ],
+        "output_format": {
+            "reason": "<why this preprocess implementation was chosen>",
+            "generated_code": "<complete preprocess function source code>",
+            "input_schema": {
+                "reason": "<how you inferred these fields from README/entry point/run_command>",
+                "version": "1.0",
+                "task_type": "<short label, e.g. 'text_generation', 'extractive_qa', 'nli', 'classification'>",
+                "inputs": [
+                    {
+                        "field_name": "<snake_case name matching raw_input[...] access in code>",
+                        "field_type": "string | number | integer | boolean",
+                        "field_required": true,
+                        "field_description": "<one sentence describing this field>"
+                    }
+                ]
+            }
+        }
+    },
+    "inference": {
+        "role":[
+            "You are a code refactoring assistant.",
+            "Your task is to extract and rewrite only the model inference logic of a repository into a standalone `inference(model_bundle, model_inputs)` function for single-sample inference."
+        ],
+        "instructions":[
+            "The target function is:",
+            "",
+            "1. inference(model_bundle, model_inputs):",
+            "- Execute the model inference for one sample and return the COMPLETE result.",
+            "- Input: `model_bundle` produced by `load_model()` and `model_inputs` produced by `preprocess()`.",
+            "- Output: `raw_outputs` directly returned from the model execution stage.",
+            "",
+            "CRITICAL - generative vs. non-generative models:",
+            "- For GENERATIVE / text-generation models (any autoregressive or encoder-decoder language model that produces a sequence of tokens): the inference function MUST produce the FULL output sequence, NOT just the logits from a single forward pass. A single model(input) / model.forward(input) call only produces one step's logits, which is NOT a usable result.",
+            "- You MUST replicate the generation method used in the ORIGINAL code. Look at how the original repository performs generation and follow the same approach:",
+            "  * If the original uses HuggingFace Transformers model.generate() -> use model.generate() with the same parameters.",
+            "  * If the original uses a manual autoregressive decoding loop (for token in range(...): next_token = model(...)) -> replicate that loop.",
+            "  * If the original uses fairseq generator.generate() -> use the same fairseq API.",
+            "  * If the original uses vLLM / TGI / other serving frameworks -> use the same API.",
+            "  * If the original uses any other custom generation method -> replicate it faithfully.",
+            "- Always preserve the original generation parameters (max_length / max_new_tokens, temperature, top_k, top_p, num_beams, eos_token_id, etc.). If specific parameters are not found in the original code, use sensible defaults (e.g. max_new_tokens=512).",
+            "- For NON-GENERATIVE models (classification, regression, embedding, object detection, etc.): a single model(input) / model.forward(input) call is correct.",
+            "- How to determine which type: look at the original code. Key signals for generative: any form of sequential token generation loop, .generate() calls, GenerationConfig, beam search, sampling parameters (temperature, top_k, top_p), decoding output token IDs back to text. If in doubt and the task is text generation / translation / summarization / QA with free-form answers, treat it as generative.",
+            "",
+            "Strict constraints:",
+            "- DO NOT load the model or initialize runtime dependencies.",
+            "- DO NOT parse or transform raw user input.",
+            "- DO NOT decode predictions or generate final user-facing results.",
+            "- DO NOT include training logic.",
+            "- DO NOT include dataset iteration, dataloader construction, optimizer, loss computation, scheduler, gradient updates, or evaluation metrics.",
+            "- If device movement is required for model_inputs, do only the minimal necessary movement inside this function.",
+            "- If the original code contains mixed logic, keep only the part strictly required to execute inference.",
+            "",
+            "Implementation requirements:",
+            "- Produce a complete Python function named exactly `inference`.",
+            "- The function signature must be: `def inference(model_bundle, model_inputs):`",
+            "- The function should be self-contained as much as possible.",
+            "- Preserve original inference behavior as faithfully as possible.",
+            "- Prefer minimal extraction: keep only the code truly required for single-sample inference.",
+            "- Use objects from `model_bundle` such as `model`, `device`, `processor`, or other runtime dependencies only when strictly needed for inference.",
+            "- If the original inference uses `torch.no_grad()`, `model.eval()`, autocast, or similar runtime wrappers, preserve them when appropriate.",
+            "- Adapt any batch-oriented inference logic into single-sample inference if needed.",
+            "- Return only the model execution result as `raw_outputs`.",
+            "",
+            "Code style requirements:",
+            "- Keep the code runnable and explicit.",
+            "- Add brief comments for non-obvious steps.",
+            "- CRITICAL SELF-CONTAINMENT RULE: Your generated inference() function must be fully self-contained in terms of executable logic. You MUST inline all inference logic directly into the function body rather than calling repository utility functions (e.g. do NOT call `repo_module.predict(...)`, `utils.generate(...)`, `model_wrapper.inference(...)`, etc.). You MAY import model architecture classes from the repository. But any function that performs the forward pass, generation loop, or inference orchestration must have its logic copied directly into inference(). The related code files are provided so you can read and understand the utility functions, then reproduce their essential logic inline.",
+            "- Do not invent nonexistent project-specific APIs unless strongly implied by the given code.",
+            "- If some dependency is missing from the provided files, make the smallest reasonable assumption and note it in a short comment inside the code."
+          ],
+        "fuction_return_format":[
+            "def inference(model_inputs, model_bundle):\n    ...\n    return raw_outputs",
+            "Return exactly one object named `raw_outputs`.",
+            "`raw_outputs` should represent the direct result of model execution as closely as possible.",
+            "Do not return decoded labels, final strings, formatted user-facing results, or multiple values.",
+            "If minimal wrapping is necessary, keep it as close as possible to the original model output structure."
+        ]
+    },
+    "postprocess": {
+        "role":[
+            "You are a code refactoring assistant.",
+            "Your task is to extract and rewrite only the postprocessing logic of a repository into a standalone `postprocess(raw_outputs, model_bundle=None)` function for single-sample inference."
+        ],
+        "instructions":[
+            "The target function is:",
+            "",
+            "1. postprocess(raw_outputs, model_bundle=None):",
+            "- Convert raw model outputs into final user-facing results for one sample.",
+            "- Includes only output decoding, argmax / softmax / sigmoid / thresholding, label mapping, probability formatting, box / mask / token decoding, and final result packaging.",
+            "- Input: `raw_outputs` produced by `inference()`.",
+            "- Output: final prediction/result in a user-facing format.",
+            "",
+            "Strict constraints:",
+            "- DO NOT load model weights or initialize runtime dependencies.",
+            "- DO NOT parse or transform raw user input.",
+            "- DO NOT run model forward pass.",
+            "- DO NOT include training logic.",
+            "- DO NOT include dataset iteration, dataloader construction, optimizer, loss computation, scheduler, gradient updates, or evaluation metrics.",
+            "- If the original project mixes inference and postprocessing together, keep only the part strictly after model execution.",
+            "- If some label names, tokenizer, processor, or decoding helpers are required, access them through `model_bundle` when necessary.",
+            "",
+            "Implementation requirements:",
+            "- Produce a complete Python function named exactly `postprocess`.",
+            "- The function signature must be: `def postprocess(raw_outputs, model_bundle=None):`",
+            "- The function should be self-contained as much as possible.",
+            "- Preserve original postprocessing behavior as faithfully as possible.",
+            "- Prefer minimal extraction: keep only the code truly required to convert one-sample raw outputs into final results.",
+            "- If batch-oriented output handling exists, adapt it to single-sample inference only.",
+            "- Return only the final processed result.",
+            "",
+            "Code style requirements:",
+            "- Keep the code runnable and explicit.",
+            "- Add brief comments for non-obvious steps.",
+            "- CRITICAL SELF-CONTAINMENT RULE: Your generated postprocess() function must be fully self-contained in terms of executable logic. You MUST inline all postprocessing logic directly into the function body rather than calling repository utility functions. You MAY import data structure classes or constants from the repository. But any function that performs output decoding, label mapping, or result formatting must have its logic copied directly into postprocess(). The related code files are provided so you can read and understand the utility functions, then reproduce their essential logic inline.",
+            "- Do not invent nonexistent project-specific APIs unless strongly implied by the given code.",
+            "- If some dependency is missing from the provided files, make the smallest reasonable assumption and note it in a short comment inside the code."
+        ],
+        "fuction_return_format":[
+            "def postprocess(raw_outputs, model_bundle=None):\n    ...\n    return final_result",
+            "- Return exactly one object representing the final user-facing result.",
+            "Name this return value `final_result`.",
+            "Prefer a dictionary when possible for consistency and extensibility.",
+            "Do not return multiple values."
+        ]
+    },
+    "config_file":[
+        "---{config_file_path}---",
+        "{config_file_content}"
+    ],
+    "pipeline_contract":[
+        "The extracted functions will be connected in the following fixed pipeline:",
+        "model_bundle = load_model()",
+        "model_inputs = preprocess(raw_input, model_bundle)",
+        "raw_outputs = inference(model_inputs, model_bundle)",
+        "final_result = postprocess(raw_outputs, model_bundle)",
+        "`raw_input` is a dict where each value is a FILE PATH (string) to the actual input data inside the container. The preprocess function is responsible for reading the file contents from these paths.",
+        "The generated function must be compatible with the fixed pipeline above without requiring changes to the function signature, return format, or call order.",
+        "CRITICAL: Do NOT include any server startup code in the generated functions. No uvicorn.run(), no app.run(), no gradio .launch(), no Flask/FastAPI app creation, no if __name__ == '__main__' block. The generated code is imported as a library by a separate FastAPI app — adding server startup code will cause port conflicts."
+    ],
+    "entry_point":[
+        "---{entry_point_path}---",
+        "{entry_point_content}"
+    ],
+    "run_command":[
+        "The run command is:",
+        "{run_command}"
+    ],
+    "weights_path":[
+        "The weights path is:",
+        "{weights_path}"
+    ],
+    "user_task": [
+        "The user wants to deploy the model for {task}."
+    ],
+    "io_contract": [
+        "The inferred single-sample I/O contract is:",
+        "{io_contract}",
+        "Use this as a strong internal hint for expected input handling and output shape, but still prioritize actual code behavior if there is a direct conflict."
+    ],
+    "related_code": [
+        "Related code for generation:",
+        "{related_code_content}"
+    ],
+    "output_format": {
+        "reason": "<reason for the generated code>",
+        "generated_code": "<code>"
+    }
+}

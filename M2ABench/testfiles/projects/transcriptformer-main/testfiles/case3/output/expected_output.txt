@@ -1,0 +1,5 @@
+expected_embeddings_shape: (1000, 2048)
+expected_llh_rows: 1000
+embeddings_mean: -0.00100456
+embeddings_std: 0.37958157
+embeddings_abs_max: 4.13830090

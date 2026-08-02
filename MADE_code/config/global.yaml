@@ -1,0 +1,67 @@
+agent:
+  max_execution_turns: 30
+  max_phase_turns: 7
+  max_query_retry_times: 1
+  max_token_length: 8000
+  # Cross-agent negotiation: when PM issues a need_retry instruction, let EM
+  # accept / negotiate / reject it instead of blindly complying. Set false to
+  # restore the original "EM always complies" behavior.
+  enable_negotiation: true
+  max_negotiation_rounds: 2
+  # Information-gap trigger: let PM intervene MID-phase (not only at the phase
+  # boundary) when a cheap heuristic shows EM is stuck - repeating the same tool
+  # or hitting consecutive errors. Keeps EM autonomous (PM is not called every
+  # turn) while letting it rescue EM before it burns all execution turns.
+  enable_gap_trigger: true
+  gap_repeat_threshold: 3        # same tool this many turns in a row -> stuck
+  gap_error_threshold: 2         # this many consecutive errored turns -> stuck
+  gap_max_interventions: 3       # cap mid-phase PM nudges per phase (cost guard)
+  gap_cooldown: 2                # min turns between mid-phase nudges
+  # --- Coordination mechanism (consistency-gated supervision) ---
+  # intervention_policy selects HOW the mid-phase intervention DECISION is made
+  # (ablation switch): consistency | never | boundary | always | random |
+  # uncertainty. 'consistency' (default) fires on the four predicates
+  # (redundant / premature / stale / stall) over the global artifact-state
+  # belief; the LLM gap_check then only writes the instruction CONTENT.
+  intervention_policy: consistency
+  # enable_override: EM may ACCEPT/NEGOTIATE/REJECT a PM instruction grounded in
+  # its first-hand tool observations. Set false to force EM to always comply
+  # (the "- executor override" ablation). Composes with enable_negotiation.
+  enable_override: true
+  # enable_retroactive_invalidation: on a failed tool observation, attribute a
+  # root cause and DEMOTE the responsible earlier phase's artifacts
+  # present -> invalidated (the non-monotonic Update operator). Set false to make
+  # the belief monotone (the "- retroactive invalidation" ablation).
+  enable_retroactive_invalidation: true
+  random_gate_p: 0.15            # trigger prob for intervention_policy=random
+  ablation_seed: 0              # seeds the random-gate RNG for reproducibility
+backend:
+  # ---------------------------------------------------------------------------
+  # Credentials are REDACTED for anonymous release. Fill in your own keys before
+  # running. None of these are required to read the code; they are only used at
+  # runtime for LLM queries and for downloading model weights.
+  # ---------------------------------------------------------------------------
+  # LLM endpoint. The pipeline talks to an OpenAI-compatible API. Point base_url
+  # at your provider (e.g. https://api.openai.com/v1) and supply the key.
+  gr_base_url: "https://YOUR_OPENAI_COMPATIBLE_ENDPOINT"
+  gr_api_key: "YOUR_LLM_API_KEY"          # used when --backend gr
+  openai_api_key: null                    # used when --backend openai
+  # Weight-download services (optional; only needed for models hosted there).
+  google_drive_api_key: "YOUR_GOOGLE_DRIVE_API_KEY"
+  kaggle_api_key: "YOUR_KAGGLE_API_KEY"
+  kaggle_username: "YOUR_KAGGLE_USERNAME"
+  # em_top_logprobs: request N top logprobs on the EM action call so the
+  # `uncertainty` intervention policy can compute an EM-action uncertainty.
+  # 0 (default) => parameter NOT sent => identical to prior behavior. Raise to
+  # e.g. 5 only when running the uncertainty ablation (verify the endpoint
+  # accepts top_logprobs first).
+  em_top_logprobs: 0
+docker_setting:
+  container_name: None
+  image_name: None
+  port_mapping: 48205:8000
+  use_gpu: device=0,1,2,3
+  work_dir: /workspace
+download_setting:
+  repo_root: 
+  weights_root: 

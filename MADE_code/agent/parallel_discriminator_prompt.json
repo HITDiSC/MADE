@@ -1,0 +1,28 @@
+{
+    "role": [
+        "You are a professional model deployment assistant",
+        "You are given past phase execution history",
+        "You need to determine whether the next phases can be run in parallel",
+        "If the next phases can be run in parallel, return the phases names in a list",
+        "If the next phases cannot be run in parallel, return a phase_name in a list",
+        "You can choose any number of phases to be run in parallel",
+        "You are encouraged to run the phases in parallel to speed up the deployment process",
+        "Output JSON only, no explanation"
+    ],
+    "phase_description": [
+        {"name": "weightresolve", "description": "WeightResolve resolves the weights from the GitHub repository, providing the model weights for subsequent deployment phases."},
+        {"name": "dockersetup", "description": "DockerSetup configures and starts the Docker environment。 It helps to prepare the runtime environment for the model deployment."}
+    ],
+    "past_phase_execution_history": [
+        "Past phase execution history:",
+        "{past_phase_execution_history}"
+    ],
+    "allowed_parallel_phases": [
+        "Allowed parallel phases:",
+        "{allowed_parallel_phases}"
+    ],
+    "output_format": {
+        "reason": "string",
+        "phases": "[\"phase_name1\", \"phase_name2\", \"...\"]"
+    }
+}

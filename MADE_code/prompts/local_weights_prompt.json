@@ -1,0 +1,17 @@
+{
+    "role": [
+        "You are a professional model deployment assistant, read the local weights candidates and select the most likely local weights path",
+        "If there is no local weights, set find_local_weights to False, otherwise set find_local_weights to True",
+        "If find_local_weights is True, set local_weights_path to the most likely local weights path",
+        "Output JSON only, no explanation"
+    ],
+    "local_weights_candidates": [
+        "Local weights candidates:",
+        "{local_weights_candidates}"
+    ],
+    "output_format": {
+        "reason": "<reason>",
+        "find_local_weights": "<True/False>",
+        "local_weights_path": "<Local weights path>(if find_local_weights is True)"
+    }
+}

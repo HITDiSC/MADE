@@ -1,0 +1,5 @@
+predicted_label: not similar
+gold_label: not similar
+predictions:
+1. label=not similar | score=0.8495071530
+2. label=similar | score=0.1504928917

@@ -1,0 +1,4 @@
+{
+  "source_index": 1,
+  "notes": "Input JSON matches the project inference schema used by scripts/test.py; output.txt is the corresponding official assistant_msg."
+}

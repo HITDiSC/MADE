@@ -1,0 +1,24 @@
+## Thinking
+
+Finding reasoning paths:
+1. Urogenital diaphragm -> Pelvic anatomy -> Muscles and fascia -> Deep perineal pouch
+2. Urogenital diaphragm -> Components of the perineum -> Muscles and connective tissue
+3. Urogenital diaphragm -> Anatomical structures -> Superficial vs. deep fascia
+
+Reasoning Process:
+1. The urogenital diaphragm is a structure located in the pelvic region, specifically within the perineum. It is important to understand its composition to determine which structures contribute to its formation.
+
+2. The urogenital diaphragm is primarily composed of the deep transverse perineal muscle and the perineal membrane. These structures are located in the deep perineal pouch, which is a part of the pelvic floor.
+
+3. The perineal membrane is a layer of fascia that provides support and is part of the urogenital diaphragm. It is important to distinguish between the deep fascia, which contributes to the diaphragm, and the superficial fascia, which does not.
+
+4. Colle's fascia is a type of superficial fascia found in the perineal region. It is continuous with the superficial fascia of the abdominal wall and is located more superficially than the structures forming the urogenital diaphragm.
+
+5. Since the urogenital diaphragm is composed of deeper structures, such as the deep transverse perineal muscle and the perineal membrane, superficial fascia like Colle's fascia does not contribute to its formation.
+
+Conclusion:
+Colle's fascia, being a type of superficial fascia, does not contribute to the formation of the urogenital diaphragm.
+
+## Final Answer
+
+Colle's fascia. Explanation: Colle's fascia does not contribute to the Urogenital Diaphragm. It is attached posteriorly to the posterior border of the urogenital diaphragm but does not form pa of this diaphragm. Ref: BDC, Volume 2, 4th Edition, Page 332; Grants Method of Anatomy, 11th Edition, Page 244; Gray's Anatomy, 36th Edition, Page 563

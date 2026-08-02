@@ -1,0 +1,3 @@
+The 10 gene names below are arranged by descending expression level in a Homo sapiens cell. Determine the cell type of this cell.
+Cell sentence: MALAT1 MT-ATP6 MT-CO2 MT-CO1 MT-ND4 MT-CO3 MT-CYB MT-ND3 MT-ND5 MT-ND2.
+The cell type that these genes are most commonly linked with is:

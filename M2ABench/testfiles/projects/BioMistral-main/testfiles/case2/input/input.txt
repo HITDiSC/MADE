@@ -1,0 +1,7 @@
+The following are multiple choice questions (with answers) about medical knowledge. 
+ **Question:** Which vitamin is supplied from only animal source: 
+ (A) Vitamin C 
+ (B) Vitamin B7 
+ (C) Vitamin B12 
+ (D) Vitamin D 
+ **Answer:**(

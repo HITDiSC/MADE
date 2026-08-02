@@ -1,0 +1,35 @@
+{
+  "citation": "",
+  "description": "",
+  "features": {
+    "input_ids": {
+      "feature": {
+        "dtype": "int32",
+        "_type": "Value"
+      },
+      "_type": "List"
+    },
+    "n_counts": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "batch": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "n_genes": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "filter_pass": {
+      "dtype": "bool",
+      "_type": "Value"
+    },
+    "length": {
+      "dtype": "int64",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": ""
+}
